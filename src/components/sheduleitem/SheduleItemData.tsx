@@ -3,7 +3,7 @@ import {ImageSourcePropType} from 'react-native/types';
 export const SheduleItemData: {
   shoesNumber: string;
   shoesCost: number;
-  imageUrl: ImageSourcePropType | undefined;
+  imageUrl: ImageSourcePropType;
 }[] = [
   {
     shoesNumber: 'Shoes 1',

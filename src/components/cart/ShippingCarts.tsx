@@ -7,35 +7,44 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {removeItemFromcart} from '../../redux/shoesRedux/actions/Actions';
 
 const ShippingCarts = () => {
-  const shoesDatas = useSelector((state: any) => state);
-  console.log('useSelectorData', shoesDatas);
+  const items = useSelector(state => state);
+  console.log('useSelectorData', items);
+
+  const dispatch = useDispatch();
+
+  const delteItem = (index: any) => {
+    dispatch(removeItemFromcart(index));
+  };
 
   return (
     <>
-      {shoesDatas ? (
+      {items ? (
         <View style={styles.mainConatinerView}>
           <FlatList
-            data={shoesDatas.shoesData}
-            keyExtractor={item => item.shoesNumber}
-            renderItem={({item}) => (
-              <View style={styles.containerView}>
-                <View style={styles.itemView}>
-                  <Text style={styles.serialText}>{item.shoesNumber}</Text>
-                  <Text style={styles.costText}>INR {item.shoesCost}</Text>
-                  <TouchableOpacity
-                    style={styles.buttonView}
-                    onPress={() => {}}>
-                    <Text style={styles.buttonText}>Remove</Text>
-                  </TouchableOpacity>
+            data={items}
+            // keyExtractor={item => item.shoesNumber}
+            renderItem={({item, index}) => {
+              return (
+                <View style={styles.containerView}>
+                  <View style={styles.itemView}>
+                    <Text style={styles.serialText}>{item.shoesNumber}</Text>
+                    <Text style={styles.costText}>INR {item.shoesCost}</Text>
+                    <TouchableOpacity
+                      style={styles.buttonView}
+                      onPress={() => delteItem(index)}>
+                      <Text style={styles.buttonText}>Remove</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.imageView}>
+                    <Image source={item.imageUrl} style={styles.imageView} />
+                  </View>
                 </View>
-                <View style={styles.imageView}>
-                  <Image source={item.imageUrl} style={styles.imageView} />
-                </View>
-              </View>
-            )}
+              );
+            }}
           />
         </View>
       ) : (

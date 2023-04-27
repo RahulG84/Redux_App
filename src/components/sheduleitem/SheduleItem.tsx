@@ -6,30 +6,26 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {SheduleItemData} from './SheduleItemData';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  addItemToCart,
-  increaseItem,
-} from '../../redux/shoesRedux/actions/Actions';
+import {addItemToCart} from '../../redux/shoesRedux/actions/Actions';
 import {useNavigation} from '@react-navigation/native';
 
 export default function SheduleItem() {
+  // const [numberOfData, setNumberOfData] = useState([{}]);
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
   const addToItem = (item: any) => {
     dispatch(addItemToCart(item));
     console.log(item);
   };
 
-  const counter = useSelector((state: any) => state.counter);
-  console.log('counter is ', counter);
-
-  const getIncreaseDtat = () => {
-    dispatch(increaseItem());
-  };
+  const items = useSelector((state: any) => state);
+  let data: any = items;
+  console.log('length', data.length);
 
   return (
     <>
@@ -43,13 +39,13 @@ export default function SheduleItem() {
               style={styles.shopingView}
               onPress={() => navigation.navigate('ShippingCarts')}>
               <MaterialIcons name="shopping-cart" size={30} color={'black'} />
-              <Text style={styles.countingText}>{counter}</Text>
+              <Text style={styles.countingText}>{data.length}</Text>
             </TouchableOpacity>
           </View>
         </View>
         <FlatList
           data={SheduleItemData}
-          keyExtractor={item => item.shoesNumber}
+          // keyExtractor={item => item.shoesNumber}
           renderItem={({item}) => (
             <View style={styles.containerView}>
               <View style={styles.itemView}>
@@ -57,9 +53,7 @@ export default function SheduleItem() {
                 <Text style={styles.costText}>INR {item.shoesCost}</Text>
                 <TouchableOpacity
                   style={styles.buttonView}
-                  // onPress={() => dispatch(increaseItem())}
                   onPress={() => {
-                    getIncreaseDtat();
                     addToItem(item);
                   }}>
                   <Text style={styles.buttonText}>Add to Cart</Text>
