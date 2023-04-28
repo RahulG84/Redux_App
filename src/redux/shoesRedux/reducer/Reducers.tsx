@@ -1,16 +1,4 @@
-/* eslint-disable no-unreachable */
-import {ADD_ITEMS, DELETE_ITEMS, INCREASE} from '../ActionTypes';
-
-// const initialState = {
-//   shoesData: [],
-//   counter: 0,
-// };
-
-// case INCREASE:
-//   return {
-//     ...state,
-//     counter: state.counter + 1,
-//   };
+import {ADD_ITEMS, DELETE_ITEMS} from '../ActionTypes';
 
 export const Reducers = (state = [], action: any) => {
   switch (action.type) {
@@ -22,7 +10,7 @@ export const Reducers = (state = [], action: any) => {
         return index !== action.payload;
       });
       return deleteArray;
-      // eslint-disable-next-line no-labels
-      defaulte: return state;
+    default:
+      return state;
   }
 };

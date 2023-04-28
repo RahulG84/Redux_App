@@ -8,10 +8,16 @@ import {
 } from 'react-native';
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {removeItemFromcart} from '../../redux/shoesRedux/actions/Actions';
+import {
+  decarseCount,
+  removeItemFromcart,
+} from '../../redux/shoesRedux/actions/Actions';
+
+// const theme = useSelector((state: any) => state.ThemeReducer);
+// console.log('theme', theme);
 
 const ShippingCarts = () => {
-  const items = useSelector(state => state);
+  const items = useSelector((state: any) => state.Reducers);
   console.log('useSelectorData', items);
 
   const dispatch = useDispatch();
@@ -20,10 +26,21 @@ const ShippingCarts = () => {
     dispatch(removeItemFromcart(index));
   };
 
+  const theme: any = useSelector((state: any) => state.ThemeReducer);
+  console.log('theme', theme);
+
+  const counterDecarse = () => {
+    dispatch(decarseCount());
+  };
+
   return (
     <>
       {items ? (
-        <View style={styles.mainConatinerView}>
+        <View
+          style={[
+            styles.mainConatinerView,
+            {backgroundColor: theme ? 'black' : 'white'},
+          ]}>
           <FlatList
             data={items}
             // keyExtractor={item => item.shoesNumber}
@@ -35,7 +52,10 @@ const ShippingCarts = () => {
                     <Text style={styles.costText}>INR {item.shoesCost}</Text>
                     <TouchableOpacity
                       style={styles.buttonView}
-                      onPress={() => delteItem(index)}>
+                      onPress={() => {
+                        delteItem(index);
+                        counterDecarse();
+                      }}>
                       <Text style={styles.buttonText}>Remove</Text>
                     </TouchableOpacity>
                   </View>
@@ -59,7 +79,7 @@ export default ShippingCarts;
 const styles = StyleSheet.create({
   mainConatinerView: {
     flex: 1,
-    backgroundColor: '#ECEFEF',
+    // backgroundColor: '#ECEFEF',
   },
   titleText: {
     fontSize: 30,

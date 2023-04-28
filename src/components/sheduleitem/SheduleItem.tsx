@@ -10,11 +10,13 @@ import React, {useState} from 'react';
 import {SheduleItemData} from './SheduleItemData';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch, useSelector} from 'react-redux';
-import {addItemToCart} from '../../redux/shoesRedux/actions/Actions';
+import {
+  addItemToCart,
+  increaseCount,
+} from '../../redux/shoesRedux/actions/Actions';
 import {useNavigation} from '@react-navigation/native';
 
 export default function SheduleItem() {
-  // const [numberOfData, setNumberOfData] = useState([{}]);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -23,23 +25,34 @@ export default function SheduleItem() {
     console.log(item);
   };
 
-  const items = useSelector((state: any) => state);
-  let data: any = items;
-  console.log('length', data.length);
+  const counterIncrease = () => {
+    dispatch(increaseCount());
+  };
+
+  const count: any = useSelector((state: any) => state.CounterReducer);
+  console.log('Numbers', count);
+
+  const theme: any = useSelector((state: any) => state.ThemeReducer);
+  console.log('theme', theme);
 
   return (
     <>
-      <View style={styles.mainConatinerView}>
+      <View
+        style={[
+          styles.mainConatinerView,
+          {backgroundColor: theme ? 'black' : 'white'},
+        ]}>
         <View style={styles.headerView}>
           <View style={styles.startHeaderView}>
             <Text style={styles.titleText}>Redux App</Text>
           </View>
+
           <View style={styles.endHeaderView}>
             <TouchableOpacity
               style={styles.shopingView}
               onPress={() => navigation.navigate('ShippingCarts')}>
               <MaterialIcons name="shopping-cart" size={30} color={'black'} />
-              <Text style={styles.countingText}>{data.length}</Text>
+              <Text style={styles.countingText}>{count.counter}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -55,6 +68,7 @@ export default function SheduleItem() {
                   style={styles.buttonView}
                   onPress={() => {
                     addToItem(item);
+                    counterIncrease();
                   }}>
                   <Text style={styles.buttonText}>Add to Cart</Text>
                 </TouchableOpacity>
@@ -73,7 +87,7 @@ export default function SheduleItem() {
 const styles = StyleSheet.create({
   mainConatinerView: {
     flex: 1,
-    backgroundColor: '#ECEFEF',
+    // backgroundColor: '#ECEFEF',
   },
   titleText: {
     fontSize: 30,
@@ -83,8 +97,9 @@ const styles = StyleSheet.create({
   },
   headerView: {
     flexDirection: 'row',
-    marginTop: 10,
+    // marginTop: 10,
     marginBottom: 10,
+    backgroundColor: 'white',
   },
   startHeaderView: {
     flex: 1,
