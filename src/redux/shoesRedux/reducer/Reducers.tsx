@@ -7,6 +7,7 @@ export const Reducers = (state = [], action: any) => {
 
     case DELETE_ITEMS:
       const deleteArray = state.filter((item: any, index: any) => {
+        // vaha se same nhi rayega to returen item ko bhej dega
         return index !== action.payload;
       });
       return deleteArray;

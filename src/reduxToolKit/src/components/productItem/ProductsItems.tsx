@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import {SheduleItemData} from './SheduleItemData';
+
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -15,20 +15,25 @@ import {
   increaseCount,
 } from '../../redux/shoesRedux/actions/Actions';
 import {useNavigation} from '@react-navigation/native';
-import {Languages} from '../../constant/Languages';
+import {SheduleItemData} from './ProductsData';
+import {addCartItem} from '../../redux/CartSlice/CartSlice';
+import {Languages} from '../../../../constant/Languages';
 
 export default function SheduleItem() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const addToItem = (item: any) => {
-    dispatch(addItemToCart(item));
+    dispatch(addCartItem(item));
     console.log(item);
   };
 
-  const counterIncrease = () => {
-    dispatch(increaseCount());
-  };
+  const addedItem = useSelector((state: any) => state);
+  console.log(addedItem);
+
+  //   const counterIncrease = () => {
+  //     dispatch(increaseCount());
+  //   };
 
   const count: any = useSelector((state: any) => state.CounterReducer);
   console.log('Numbers', count);
@@ -59,7 +64,7 @@ export default function SheduleItem() {
               style={styles.shopingView}
               onPress={() => navigation.navigate('ShippingCarts')}>
               <MaterialIcons name="shopping-cart" size={30} color={'black'} />
-              <Text style={styles.countingText}>{count.counter}</Text>
+              <Text style={styles.countingText}>{addedItem.cart.length}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -75,7 +80,6 @@ export default function SheduleItem() {
                   style={styles.buttonView}
                   onPress={() => {
                     addToItem(item);
-                    counterIncrease();
                   }}>
                   <Text style={styles.buttonText}>Add to Cart</Text>
                 </TouchableOpacity>

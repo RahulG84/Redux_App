@@ -3,3 +3,4 @@ export const DELETE_ITEMS = 'DELETE_ITEMS';
 export const CHANGE_THEME = 'CHANGE_THEME';
 export const INCREASE = 'INCREASE';
 export const DECARSE = 'DECARSE';
+export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';

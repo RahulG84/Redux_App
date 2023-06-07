@@ -1,5 +1,6 @@
 import {
   ADD_ITEMS,
+  CHANGE_LANGUAGE,
   CHANGE_THEME,
   DECARSE,
   DELETE_ITEMS,
@@ -24,4 +25,8 @@ export const increaseCount = () => ({
 });
 export const decarseCount = () => ({
   type: DECARSE,
+});
+export const toChangeLanguage = (type: any) => ({
+  type: CHANGE_LANGUAGE,
+  payload: type,
 });
