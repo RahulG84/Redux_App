@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import {TextInput, Button} from 'react-native-paper';
+import {TextInput, Button, HelperText} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {setUserName} from '../../redux/CartSlice/AuthSlice';
@@ -19,10 +19,24 @@ const LoginScreen = () => {
   const navigation = useNavigation();
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [showError, setShowError] = useState(false);
+  const [passVisible, setpassVisible] = useState(true);
 
   const onLoginSubmit = () => {
-    dispatch(setUserName(name));
-    navigation.navigate('SheduleItem');
+    // if (name !== '' && password !== '') {
+    //   dispatch(setUserName(name));
+    //   navigation.navigate('SheduleItem');
+    // } else {
+    //   null;
+    // }
+    if (name === '' || password === '') {
+      setShowError(true);
+    } else {
+      dispatch(setUserName(name));
+      navigation.navigate('SheduleItem');
+      setShowError(false);
+      // Submit the form or perform other actions
+    }
   };
 
   return (
@@ -51,8 +65,23 @@ const LoginScreen = () => {
           mode="outlined"
           theme={{colors: {primary: 'blue'}}}
           value={password}
+          secureTextEntry={passVisible}
           onChangeText={pass => setPassword(pass)}
+          right={
+            <TextInput.Icon
+              icon="eye"
+              onPress={() => setpassVisible(!passVisible)}
+            />
+          }
         />
+        {showError && (
+          <HelperText
+            type="error"
+            visible={showError}
+            style={styles.helperText}>
+            Please Enter Email And Password
+          </HelperText>
+        )}
       </View>
       <View style={styles.buttonView}>
         <Button
@@ -93,8 +122,13 @@ const styles = StyleSheet.create({
   loginImageView: {marginTop: 20, alignItems: 'center'},
   inputContainerView: {marginTop: 20, marginHorizontal: 20},
   emailTextInputField: {marginBottom: 10},
-  buttonView: {marginTop: 30, marginHorizontal: 20},
+  buttonView: {marginTop: 20, marginHorizontal: 20},
   button: {backgroundColor: 'blue'},
   secondaryButtonView: {marginTop: 20, marginLeft: 20, marginBottom: 40},
   secondaryButton: {fontSize: 16, fontWeight: '600', color: 'blue'},
+  helperText: {
+    color: 'red',
+    fontSize: 14,
+    marginTop: 4,
+  },
 });
