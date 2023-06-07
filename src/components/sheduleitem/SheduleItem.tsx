@@ -23,7 +23,7 @@ export default function SheduleItem() {
 
   const addToItem = (item: any) => {
     dispatch(addItemToCart(item));
-    console.log(item);
+    // console.log(item);
   };
 
   const counterIncrease = () => {
@@ -31,10 +31,10 @@ export default function SheduleItem() {
   };
 
   const count: any = useSelector((state: any) => state.CounterReducer);
-  console.log('Numbers', count);
+  // console.log('Numbers', count);
 
   const theme: any = useSelector((state: any) => state.ThemeReducer);
-  console.log('theme', theme);
+  // console.log('theme', theme);
 
   const laguage = useSelector((state: any) => state.LanguageReducer);
 

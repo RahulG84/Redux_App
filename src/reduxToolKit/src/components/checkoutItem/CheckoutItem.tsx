@@ -16,7 +16,7 @@ import {removeCartItem} from '../../redux/CartSlice/CartSlice';
 
 const ShippingCarts = () => {
   const items = useSelector((state: any) => state.cart);
-  console.log('useSelectorData', items);
+  // console.log('useSelectorData', items);
 
   const dispatch = useDispatch();
 
@@ -25,7 +25,7 @@ const ShippingCarts = () => {
   };
 
   const theme: any = useSelector((state: any) => state.ThemeReducer);
-  console.log('theme', theme);
+  // console.log('theme', theme);
 
   //   const counterDecarse = () => {
   //     dispatch(decarseCount());

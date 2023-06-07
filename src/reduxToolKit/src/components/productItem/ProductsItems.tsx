@@ -1,6 +1,7 @@
 import {
   FlatList,
   Image,
+  Modal,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -9,7 +10,10 @@ import {
 import React, {useState} from 'react';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Entypo from 'react-native-vector-icons/Entypo';
 import {useDispatch, useSelector} from 'react-redux';
+import {Button} from 'react-native-paper';
 import {
   addItemToCart,
   increaseCount,
@@ -23,25 +27,27 @@ export default function SheduleItem() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   const addToItem = (item: any) => {
     dispatch(addCartItem(item));
-    console.log(item);
   };
 
   const addedItem = useSelector((state: any) => state);
-  console.log(addedItem);
 
   //   const counterIncrease = () => {
   //     dispatch(increaseCount());
   //   };
 
   const count: any = useSelector((state: any) => state.CounterReducer);
-  console.log('Numbers', count);
+  // console.log('Numbers', count);
 
   const theme: any = useSelector((state: any) => state.ThemeReducer);
-  console.log('theme', theme);
+  // console.log('theme', theme);
 
   const laguage = useSelector((state: any) => state.LanguageReducer);
+
+  const items = useSelector((state: any) => state.auth);
 
   return (
     <>
@@ -65,6 +71,39 @@ export default function SheduleItem() {
               onPress={() => navigation.navigate('ShippingCarts')}>
               <MaterialIcons name="shopping-cart" size={30} color={'black'} />
               <Text style={styles.countingText}>{addedItem.cart.length}</Text>
+            </TouchableOpacity>
+            <View>
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}>
+                <View style={styles.modalView}>
+                  <View style={styles.cancelledButton}>
+                    <Entypo
+                      name="cross"
+                      size={30}
+                      color={'black'}
+                      onPress={() => setModalVisible(false)}
+                    />
+                  </View>
+                  <View style={styles.userNameView}>
+                    <Text style={styles.userNameText}>
+                      Hello {items.userName}
+                    </Text>
+                  </View>
+                  <Button
+                    mode="contained"
+                    onPress={() => navigation.navigate('LoginScreen')}
+                    style={styles.logoutButton}>
+                    Logout
+                  </Button>
+                </View>
+              </Modal>
+            </View>
+            <TouchableOpacity
+              style={styles.profileIcon}
+              onPress={() => setModalVisible(true)}>
+              <FontAwesome name="user" size={30} color={'black'} />
             </TouchableOpacity>
           </View>
         </View>
@@ -98,7 +137,6 @@ export default function SheduleItem() {
 const styles = StyleSheet.create({
   mainConatinerView: {
     flex: 1,
-    // backgroundColor: '#ECEFEF',
   },
   titleText: {
     fontSize: 30,
@@ -108,7 +146,6 @@ const styles = StyleSheet.create({
   },
   headerView: {
     flexDirection: 'row',
-    // marginTop: 10,
     marginBottom: 10,
     backgroundColor: 'white',
   },
@@ -117,8 +154,10 @@ const styles = StyleSheet.create({
   },
   endHeaderView: {
     flex: 1,
-    alignItems: 'flex-end',
     paddingEnd: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   shopingView: {
     flexDirection: 'row',
@@ -182,4 +221,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
   },
+  modalView: {
+    width: '75%',
+    height: '40%',
+    backgroundColor: 'white',
+    alignSelf: 'center',
+    marginTop: 100,
+  },
+  cancelledButton: {
+    alignItems: 'flex-end',
+    padding: 10,
+  },
+  userNameView: {alignItems: 'center'},
+  userNameText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'blue',
+  },
+  logoutButton: {
+    backgroundColor: 'blue',
+    marginTop: 20,
+    marginHorizontal: 20,
+  },
+  profileIcon: {marginLeft: 10},
 });
