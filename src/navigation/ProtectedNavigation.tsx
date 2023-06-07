@@ -12,6 +12,7 @@ import {
 import {Languages} from '../constant/Languages';
 import SheduleItem from '../reduxToolKit/src/components/productItem/ProductsItems';
 import ShippingCarts from '../reduxToolKit/src/components/checkoutItem/CheckoutItem';
+import LoginScreen from '../reduxToolKit/src/feature/login/LoginScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,9 +20,14 @@ const ProtectedNavigation = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state: any) => state.ThemeReducer);
   const language = useSelector((state: any) => state.LanguageReducer);
-  console.log('language', language);
+  // console.log('language', language);
   return (
-    <Stack.Navigator initialRouteName="SheduleItem">
+    <Stack.Navigator initialRouteName="LoginScreen">
+      <Stack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="SheduleItem"
         component={SheduleItem}

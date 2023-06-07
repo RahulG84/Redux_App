@@ -14,11 +14,9 @@ import {
 } from '../../redux/shoesRedux/actions/Actions';
 
 // const theme = useSelector((state: any) => state.ThemeReducer);
-// console.log('theme', theme);
 
 const ShippingCarts = () => {
   const items = useSelector((state: any) => state.Reducers);
-  console.log('useSelectorData', items);
 
   const dispatch = useDispatch();
 
@@ -27,7 +25,6 @@ const ShippingCarts = () => {
   };
 
   const theme: any = useSelector((state: any) => state.ThemeReducer);
-  console.log('theme', theme);
 
   const counterDecarse = () => {
     dispatch(decarseCount());
