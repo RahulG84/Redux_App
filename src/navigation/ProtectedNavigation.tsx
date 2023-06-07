@@ -1,18 +1,25 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import SheduleItem from '../components/sheduleitem/SheduleItem';
-import ShippingCarts from '../components/cart/ShippingCarts';
-import {Button} from 'react-native';
+// import SheduleItem from '../components/sheduleitem/SheduleItem';
+// import ShippingCarts from '../components/cart/ShippingCarts';
+import {Button, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {toChangeTheme} from '../redux/shoesRedux/actions/Actions';
+import {
+  toChangeLanguage,
+  toChangeTheme,
+} from '../redux/shoesRedux/actions/Actions';
+import {Languages} from '../constant/Languages';
+import SheduleItem from '../reduxToolKit/src/components/productItem/ProductsItems';
+import ShippingCarts from '../reduxToolKit/src/components/checkoutItem/CheckoutItem';
 
 const Stack = createNativeStackNavigator();
 
 const ProtectedNavigation = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state: any) => state.ThemeReducer);
-  console.log('theme', theme);
+  const language = useSelector((state: any) => state.LanguageReducer);
+  console.log('language', language);
   return (
     <Stack.Navigator initialRouteName="SheduleItem">
       <Stack.Screen
@@ -27,17 +34,35 @@ const ProtectedNavigation = () => {
           headerShown: true,
           title: 'Checkout',
           headerRight: () => (
-            <Button
-              onPress={() => {
-                if (theme === false) {
-                  dispatch(toChangeTheme(true));
-                } else {
-                  dispatch(toChangeTheme(false));
+            <View style={{flexDirection: 'row'}}>
+              <Button
+                onPress={() => {
+                  if (theme === false) {
+                    dispatch(toChangeTheme(true));
+                  } else {
+                    dispatch(toChangeTheme(false));
+                  }
+                }}
+                // title={theme === false ? 'Dark' : 'White'}
+                title={
+                  language === 'ENGLISH'
+                    ? Languages[0].HINDI
+                    : Languages[0].ENGLISH
                 }
-              }}
-              title={theme === false ? 'Dark' : 'White'}
-              color="green"
-            />
+                color="green"
+              />
+              <Button
+                onPress={() => {
+                  if (language === 'ENGLISH') {
+                    dispatch(toChangeLanguage('HINDI'));
+                  } else {
+                    dispatch(toChangeLanguage('ENGLISH'));
+                  }
+                }}
+                title={'Change Language'}
+                color="green"
+              />
+            </View>
           ),
         }}
       />
