@@ -33,16 +33,19 @@ const SignUpScreen = () => {
       mobileNumber === '' ||
       password === '' ||
       confirmPassword === '' ||
-      password === confirmPassword
+      password !== confirmPassword
     ) {
       setShowError(true);
     } else {
       dispatch(setUserName({firstName, email, password}));
       navigation.navigate('LoginScreen');
       setShowError(false);
-      // Submit the form or perform other actions
     }
   };
+
+  console.log(
+    'FirstName' + firstName + 'emial' + email + 'Password' + password,
+  );
 
   return (
     <ScrollView style={styles.containerView}>
@@ -111,7 +114,7 @@ const SignUpScreen = () => {
             type="error"
             visible={showError}
             style={styles.helperText}>
-            Please Enter Creditional
+            Please Enter Correct Creditional
           </HelperText>
         )}
       </View>

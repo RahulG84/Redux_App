@@ -14,7 +14,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setUserName} from '../../redux/CartSlice/AuthSlice';
 
 const LoginScreen = () => {
-  const dispatch = useDispatch();
 
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
@@ -24,16 +23,13 @@ const LoginScreen = () => {
 
   const items = useSelector((state: any) => state.auth);
 
-  console.log(items);
-
   const onLoginSubmit = () => {
-    // if (name !== '' && password !== '') {
-    //   dispatch(setUserName(name));
-    //   navigation.navigate('SheduleItem');
-    // } else {
-    //   null;
-    // }
-    if (items.email === '' || items.password === '') {
+    if (
+      items.email !== email ||
+      items.password !== password ||
+      email === '' ||
+      password === ''
+    ) {
       setShowError(true);
     } else {
       navigation.navigate('SheduleItem');
@@ -58,7 +54,7 @@ const LoginScreen = () => {
           label="Email"
           mode="outlined"
           theme={{colors: {primary: 'blue'}}}
-          value={items.email}
+          value={email}
           onChangeText={emails => setEmail(emails)}
           style={styles.emailTextInputField}
         />
@@ -66,7 +62,7 @@ const LoginScreen = () => {
           label="Password"
           mode="outlined"
           theme={{colors: {primary: 'blue'}}}
-          value={items.password}
+          value={password}
           secureTextEntry={passVisible}
           onChangeText={pass => setPassword(pass)}
           right={
@@ -77,11 +73,8 @@ const LoginScreen = () => {
           }
         />
         {showError ? (
-          <HelperText
-            type="error"
-            // visible={showError}
-            style={styles.helperText}>
-            Please Enter Email And Password
+          <HelperText type="error" style={styles.helperText}>
+            Please Enter Valid Email And Password
           </HelperText>
         ) : null}
       </View>

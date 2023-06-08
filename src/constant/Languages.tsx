@@ -4,7 +4,7 @@ export const Languages = [
     HINDI: 'काळा थीम',
   },
   {
-    ENGLISH: 'Redux App',
+    ENGLISH: 'Online Mart',
     HINDI: 'रेडक्स अॅप',
   },
   {

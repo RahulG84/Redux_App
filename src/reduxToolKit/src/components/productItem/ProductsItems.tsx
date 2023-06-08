@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: 'black',
+    color: 'green',
     marginLeft: 20,
   },
   headerView: {
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   buttonView: {
-    backgroundColor: 'green',
+    backgroundColor: 'blue',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: 'transparent',
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    color: 'black',
+    color: 'white',
     fontWeight: 'bold',
     padding: 3,
     textAlign: 'center',
