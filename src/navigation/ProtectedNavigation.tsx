@@ -13,6 +13,7 @@ import {Languages} from '../constant/Languages';
 import SheduleItem from '../reduxToolKit/src/components/productItem/ProductsItems';
 import ShippingCarts from '../reduxToolKit/src/components/checkoutItem/CheckoutItem';
 import LoginScreen from '../reduxToolKit/src/feature/login/LoginScreen';
+import SignUpScreen from '../reduxToolKit/src/feature/signup/SignUpScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,11 @@ const ProtectedNavigation = () => {
       <Stack.Screen
         name="LoginScreen"
         component={LoginScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="SignUpScreen"
+        component={SignUpScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen

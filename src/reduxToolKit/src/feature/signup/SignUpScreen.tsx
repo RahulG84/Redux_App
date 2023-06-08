@@ -3,41 +3,44 @@ import {
   View,
   Text,
   StatusBar,
-  Image,
   ScrollView,
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
 import {TextInput, Button, HelperText} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {setUserName} from '../../redux/CartSlice/AuthSlice';
 
-const LoginScreen = () => {
+const SignUpScreen = () => {
   const dispatch = useDispatch();
 
   const navigation = useNavigation();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastNAme] = useState('');
   const [email, setEmail] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showError, setShowError] = useState(false);
   const [passVisible, setpassVisible] = useState(true);
 
-  const items = useSelector((state: any) => state.auth);
-
-  console.log(items);
-
   const onLoginSubmit = () => {
-    // if (name !== '' && password !== '') {
-    //   dispatch(setUserName(name));
-    //   navigation.navigate('SheduleItem');
-    // } else {
-    //   null;
-    // }
-    if (items.email === '' || items.password === '') {
+    if (
+      firstName === '' ||
+      lastName === '' ||
+      email === '' ||
+      mobileNumber === '' ||
+      password === '' ||
+      confirmPassword === '' ||
+      password === confirmPassword
+    ) {
       setShowError(true);
     } else {
-      navigation.navigate('SheduleItem');
+      dispatch(setUserName({firstName, email, password}));
+      navigation.navigate('LoginScreen');
       setShowError(false);
+      // Submit the form or perform other actions
     }
   };
 
@@ -45,30 +48,49 @@ const LoginScreen = () => {
     <ScrollView style={styles.containerView}>
       <StatusBar backgroundColor={'blue'} barStyle={'light-content'} />
       <View style={styles.headingView}>
-        <Text style={styles.headingText}>Welcome To OnlineMart</Text>
-        <Text style={styles.subHeadingText}>Expolore Your Fashion...</Text>
-      </View>
-      <View style={styles.loginImageView}>
-        <Image
-          source={require('../../../../assets/images/ShoppingImage.png')}
-        />
+        <Text style={styles.headingText}>Sign Up</Text>
       </View>
       <View style={styles.inputContainerView}>
+        <TextInput
+          label="First Name"
+          mode="outlined"
+          theme={{colors: {primary: 'blue'}}}
+          value={firstName}
+          onChangeText={name => setFirstName(name)}
+          style={styles.textInputFileContainer}
+        />
+        <TextInput
+          label="Last Name"
+          mode="outlined"
+          theme={{colors: {primary: 'blue'}}}
+          value={lastName}
+          onChangeText={lastNames => setLastNAme(lastNames)}
+          style={styles.textInputFileContainer}
+        />
         <TextInput
           label="Email"
           mode="outlined"
           theme={{colors: {primary: 'blue'}}}
-          value={items.email}
+          value={email}
           onChangeText={emails => setEmail(emails)}
-          style={styles.emailTextInputField}
+          style={styles.textInputFileContainer}
+        />
+        <TextInput
+          label="Mobile Number"
+          mode="outlined"
+          theme={{colors: {primary: 'blue'}}}
+          value={mobileNumber}
+          onChangeText={mobileNo => setMobileNumber(mobileNo)}
+          style={styles.textInputFileContainer}
         />
         <TextInput
           label="Password"
           mode="outlined"
           theme={{colors: {primary: 'blue'}}}
-          value={items.password}
+          value={password}
           secureTextEntry={passVisible}
           onChangeText={pass => setPassword(pass)}
+          style={styles.textInputFileContainer}
           right={
             <TextInput.Icon
               icon="eye"
@@ -76,43 +98,49 @@ const LoginScreen = () => {
             />
           }
         />
-        {showError ? (
+        <TextInput
+          label="Confirm Password"
+          mode="outlined"
+          theme={{colors: {primary: 'blue'}}}
+          value={confirmPassword}
+          secureTextEntry={passVisible}
+          onChangeText={confirmPass => setConfirmPassword(confirmPass)}
+        />
+        {showError && (
           <HelperText
             type="error"
-            // visible={showError}
+            visible={showError}
             style={styles.helperText}>
-            Please Enter Email And Password
+            Please Enter Creditional
           </HelperText>
-        ) : null}
+        )}
       </View>
       <View style={styles.buttonView}>
         <Button
           mode="contained"
           onPress={() => onLoginSubmit()}
           style={styles.button}>
-          Login
+          Sign Up
         </Button>
         <TouchableOpacity
           style={styles.secondaryButtonView}
-          onPress={() => navigation.navigate('SignUpScreen')}>
-          <Text style={styles.secondaryButton}>
-            Don't have an account? Sign up
-          </Text>
+          onPress={() => navigation.navigate('LoginScreen')}>
+          <Text style={styles.secondaryButton}>Already a member? Log In</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
   );
 };
 
-export default LoginScreen;
+export default SignUpScreen;
 
 const styles = StyleSheet.create({
   containerView: {flex: 1},
-  headingView: {alignItems: 'flex-start'},
+  headingView: {alignItems: 'center'},
   headingText: {
-    fontSize: 25,
+    fontSize: 35,
     fontWeight: 'bold',
-    color: 'red',
+    color: 'black',
     marginTop: 30,
     marginLeft: 20,
   },
@@ -125,7 +153,7 @@ const styles = StyleSheet.create({
   },
   loginImageView: {marginTop: 20, alignItems: 'center'},
   inputContainerView: {marginTop: 20, marginHorizontal: 20},
-  emailTextInputField: {marginBottom: 10},
+  textInputFileContainer: {marginBottom: 10},
   buttonView: {marginTop: 20, marginHorizontal: 20},
   button: {backgroundColor: 'blue'},
   secondaryButtonView: {marginTop: 20, marginLeft: 20, marginBottom: 40},

@@ -88,7 +88,7 @@ export default function SheduleItem() {
                   </View>
                   <View style={styles.userNameView}>
                     <Text style={styles.userNameText}>
-                      Hello {items.userName}
+                      Hello {items.firstName}
                     </Text>
                   </View>
                   <Button
