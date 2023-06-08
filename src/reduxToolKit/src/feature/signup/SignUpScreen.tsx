@@ -42,11 +42,7 @@ const SignUpScreen = () => {
       setShowError(false);
     }
   };
-
-  console.log(
-    'FirstName' + firstName + 'emial' + email + 'Password' + password,
-  );
-
+  
   return (
     <ScrollView style={styles.containerView}>
       <StatusBar backgroundColor={'blue'} barStyle={'light-content'} />

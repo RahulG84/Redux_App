@@ -87,6 +87,14 @@ export default function SheduleItem() {
                     />
                   </View>
                   <View style={styles.userNameView}>
+                    <FontAwesome
+                      name="user-circle"
+                      size={50}
+                      color={'blue'}
+                      onPress={() => {}}
+                    />
+                  </View>
+                  <View style={styles.userNameView}>
                     <Text style={styles.userNameText}>
                       Hello {items.firstName}
                     </Text>
@@ -223,24 +231,25 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: '75%',
-    height: '40%',
+    height: '30%',
     backgroundColor: 'white',
     alignSelf: 'center',
     marginTop: 100,
+    elevation: 10,
   },
   cancelledButton: {
     alignItems: 'flex-end',
     padding: 10,
   },
-  userNameView: {alignItems: 'center'},
+  userNameView: {alignItems: 'center', marginBottom: 5},
   userNameText: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'blue',
+    color: 'green',
   },
   logoutButton: {
     backgroundColor: 'blue',
-    marginTop: 20,
+    marginTop: 15,
     marginHorizontal: 20,
   },
   profileIcon: {marginLeft: 10},
